@@ -15,4 +15,8 @@ clean:
 	rm -f $(BINARY_NAME)
 	rm -f $(BINARY_NAME)-*
 
+install: build
+	mkdir -p $(HOME)/.local/bin
+	cp $(BINARY_NAME) $(HOME)/.local/bin/$(BINARY_NAME)
+
 .PHONY: all build build-all clean
