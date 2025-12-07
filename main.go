@@ -11,6 +11,12 @@ import (
 	"time"
 )
 
+var (
+	Version = "dev"
+	Commit  = "unknown"
+	Date    = "unknown"
+)
+
 // Homoglyphs map for ASCII characters
 var homoglyphs = map[rune][]rune{
 	'a': {'а', 'ａ', '𝐚', '𝒂', '𝖆', '𝕒', 'a', 'ạ', 'ą', 'ä', 'à', 'á'},
@@ -78,7 +84,13 @@ type Variant struct {
 func main() {
 	jsonFlag := flag.Bool("j", false, "JSON array output")
 	entropyFlag := flag.Bool("e", false, "Entropy-sort")
+	versionFlag := flag.Bool("version", false, "Show version")
 	flag.Parse()
+
+	if *versionFlag {
+		fmt.Printf("confusio %s (commit: %s, built at: %s)\n", Version, Commit, Date)
+		return
+	}
 
 	args := flag.Args()
 	if len(args) < 1 {
