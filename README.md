@@ -1,77 +1,62 @@
-# Confusio
+# confusio
 
-**Confusio** is a Unicode-Normalisation "Confusables" Payload CLI tool written in Go. It generates visually similar Unicode variants (homoglyphs) for a given keyword. This is useful for testing input sanitization, spam filters, and phishing detection mechanisms.
+Generate visually similar Unicode variants (homoglyphs) for keywords to test input sanitization, spam filters, and phishing detection.
 
-## Features
+**Key features:**
+- Generates 30+ Unicode confusables per keyword
+- Zero dependencies — uses only Go standard library
+- Cross-platform (Linux, macOS, Windows)
+- JSON output for tool integration
+- Entropy sorting to rank variants by complexity
 
--   **Zero Dependencies**: Built using only the Go standard library.
--   **Cross-Platform**: Runs on Linux, macOS, and Windows.
--   **Rich Output**: Generates ≥ 30 variants per run.
--   **JSON Support**: Optional JSON output for easy integration with other tools.
--   **Entropy Sorting**: Sort variants by entropy (complexity/disorder).
+## Quick Start
 
-## Installation
-
-### From Source
+### Build
 
 Requirements: Go 1.21+
 
 ```bash
-git clone https://github.com/yourusername/confusio.git
-cd confusio
 make build
 ```
 
-The binary will be created in the current directory.
+Produces `confusio` binary in the current directory.
 
-## Usage
-
-```bash
-./confusio [options] <keyword>
-```
-
-### Options
-
--   `-j`: Output as a JSON array.
--   `-e`: Sort output by entropy (increasing).
-
-### Examples
-
-**Basic Usage:**
-
-```bash
-$ ./confusio stripe
-ѕtripe
-st​ripe
-stṛipe
-...
-```
-
-**JSON Output:**
-
-```bash
-$ ./confusio -j paypal
-[
-  "рaypal",
-  "pａypal",
-  ...
-]
-```
-
-**Entropy Sorted:**
-
-```bash
-$ ./confusio -e google
-```
-
-## Development
-
-To build for all supported platforms (Linux, macOS, Windows):
+For cross-platform release binaries:
 
 ```bash
 make all
 ```
 
-## License
+## Usage
 
-MIT
+```
+confusio [options] <keyword>
+```
+
+**Options:**
+- `-j` — Output as JSON array
+- `-e` — Sort variants by entropy (increasing complexity)
+
+## Examples
+
+**Basic usage:**
+```bash
+./confusio stripe
+```
+
+**JSON output:**
+```bash
+./confusio -j paypal
+```
+
+**Entropy sorted:**
+```bash
+./confusio -e google
+```
+
+## How It Works
+
+Confusio generates homoglyphs by applying Unicode normalization and finding visually similar characters. This is useful for:
+- Testing input validation and sanitization
+- Evaluating spam filter robustness
+- Assessing phishing detection mechanisms
